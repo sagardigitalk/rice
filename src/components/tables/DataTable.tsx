@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200/60 bg-white overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
+      <div className="enterprise-card overflow-hidden">
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left border-collapse">
             <thead className="bg-slate-50/50 border-b border-[var(--color-brand-table-border)] sticky top-0 z-10 backdrop-blur-md">

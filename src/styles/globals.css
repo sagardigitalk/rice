@@ -35,28 +35,28 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  /* Brand Colors - Light Royal Blue Theme */
-  --color-brand-header: #1E40AF;
-  --color-brand-sidebar: #3B82F6;
-  --color-brand-primary: #3B82F6;
-  --color-brand-primary-hover: #2563EB;
-  --color-brand-table-header: #34495E;
-  --color-brand-table-hover: #EBF5FB;
-  --color-brand-table-border: #E5E8EC;
-  --color-brand-text-primary: #2C3E50;
-  --color-brand-text-secondary: #7F8C8D;
-  --color-brand-success: #27AE60;
-  --color-brand-warning: #F39C12;
-  --color-brand-danger: #E74C3C;
-  --color-brand-info: #3498DB;
-  --color-brand-bg: #F4F6F9;
+  /* Brand Colors - Premium Light Indigo & Soft Gradients Theme */
+  --color-brand-header: rgba(255, 255, 255, 0.75);
+  --color-brand-sidebar: #FFFFFF;
+  --color-brand-primary: #4F46E5;
+  --color-brand-primary-hover: #4338CA;
+  --color-brand-table-header: #475569;
+  --color-brand-table-hover: #F8FAFC;
+  --color-brand-table-border: #F1F5F9;
+  --color-brand-text-primary: #0F172A;
+  --color-brand-text-secondary: #64748B;
+  --color-brand-success: #10B981;
+  --color-brand-warning: #F59E0B;
+  --color-brand-danger: #EF4444;
+  --color-brand-info: #3B82F6;
+  --color-brand-bg: #F8FAFC;
   --color-brand-white: #FFFFFF;
 }
 
 @layer base {
   :root {
     /* Premium SaaS Light Theme */
-    --background: 210 40% 99%;
+    --background: 210 40% 98%;
     /* #F8FAFC approx */
     --foreground: 222.2 47.4% 11.2%;
 
@@ -66,11 +66,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
 
-    --primary: 221.2 83.2% 53.3%;
-    /* #2563EB - Soft Blue brand */
+    --primary: 243.4 75.4% 58.6%;
+    /* #4F46E5 - Indigo Primary */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 214.3 31.8% 91.4%;
+    --secondary: 214.3 31.8% 96%;
     /* #F1F5F9 approx */
     --secondary-foreground: 222.2 47.4% 11.2%;
 
@@ -83,9 +83,9 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --border: 214.3 31.8% 92%;
+    --input: 214.3 31.8% 92%;
+    --ring: 243.4 75.4% 58.6%;
 
     --radius: 0.75rem;
     /* 12px border radius */
@@ -99,7 +99,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84.2% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 243.4 75.4% 58.6%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -111,7 +111,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 243.4 75.4% 58.6%;
   }
 }
 
@@ -127,13 +127,13 @@
 
 @layer utilities {
   .enterprise-card {
-    @apply bg-white border border-slate-200/60 shadow-[0_1px_3px_0_rgba(0,0,0,0.02),0_1px_2px_-1px_rgba(0,0,0,0.02)] rounded-xl transition-all duration-300 hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-4px_rgba(0,0,0,0.05)] hover:border-slate-300/50;
+    @apply bg-white border border-slate-200/50 shadow-[0_1px_3px_rgba(0,0,0,0.01),0_10px_20px_-12px_rgba(0,0,0,0.02)] rounded-2xl transition-all duration-300 hover:shadow-[0_12px_24px_-10px_rgba(79,70,229,0.05),0_4px_12px_-4px_rgba(0,0,0,0.02)] hover:border-slate-300/40;
   }
 
   .enterprise-sidebar {
-    background: linear-gradient(180deg, #1E40AF 0%, #3B82F6 100%);
-    box-shadow: 1px 0 20px rgba(59, 130, 246, 0.15);
-    @apply border-r border-[#1E40AF]/20;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.02);
+    @apply border-r border-slate-200/80;
   }
 
   .premium-shadow {
@@ -141,7 +141,18 @@
   }
 
   .premium-shadow-lg {
-    @apply shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-4px_rgba(0,0,0,0.05)];
+    @apply shadow-[0_10px_15px_-3px_rgba(0,0,0,0.03),0_4px_6px_-4px_rgba(0,0,0,0.03)];
+  }
+
+  /* Soft light gradient mesh */
+  .light-gradient-mesh {
+    background: radial-gradient(at 0% 0%, rgba(245, 243, 255, 0.5) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(239, 246, 255, 0.5) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(240, 253, 250, 0.3) 0px, transparent 50%);
+  }
+
+  .soft-card-gradient {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
   }
 
   .custom-scrollbar::-webkit-scrollbar {

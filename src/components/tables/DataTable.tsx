@@ -23,6 +23,11 @@ interface DataTableProps<TData, TValue> {
   searchPlaceholder?: string;
   searchColumn?: string;
   onRowClick?: (row: TData) => void;
+  serverSide?: boolean;
+  pageCount?: number;
+  totalRecords?: number;
+  onServerPaginationChange?: (pageIndex: number, pageSize: number) => void;
+  onServerSearchChange?: (search: string) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -31,15 +36,34 @@ export function DataTable<TData, TValue>({
   searchPlaceholder = "Search...",
   searchColumn,
   onRowClick,
+  serverSide = false,
+  pageCount = -1,
+  totalRecords = 0,
+  onServerPaginationChange,
+  onServerSearchChange,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [globalFilter, setGlobalFilter] = React.useState("");
+
+  // Debounce search for server-side filtering
+  React.useEffect(() => {
+    if (serverSide && onServerSearchChange) {
+      const handler = setTimeout(() => {
+        onServerSearchChange(globalFilter);
+      }, 500); // 500ms debounce
+      return () => clearTimeout(handler);
+    }
+  }, [globalFilter, serverSide, onServerSearchChange]);
 
   const table = useReactTable({
     data,
     columns,
+    pageCount: serverSide ? pageCount : undefined,
+    manualPagination: serverSide,
+    manualFiltering: serverSide,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -53,20 +77,33 @@ export function DataTable<TData, TValue>({
       columnFilters,
       columnVisibility,
       rowSelection,
+      globalFilter,
     },
   });
 
+  React.useEffect(() => {
+    if (serverSide && onServerPaginationChange) {
+      onServerPaginationChange(table.getState().pagination.pageIndex, table.getState().pagination.pageSize);
+    }
+  }, [table.getState().pagination.pageIndex, table.getState().pagination.pageSize, serverSide]);
+
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-1 bg-white p-4 rounded-2xl border border-slate-200/60 shadow-sm">
-        <div className="flex flex-1 items-center gap-3 max-w-md rounded-xl border border-slate-200 bg-slate-50/30 px-4 py-2 focus-within:ring-4 focus-within:ring-primary/5 focus-within:border-primary/40 focus-within:bg-white transition-all duration-300 group">
+    <div className="space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-1 items-center gap-3 max-w-md rounded-xl bg-slate-50/50 px-4 py-2 focus-within:ring-4 focus-within:ring-primary/5 focus-within:bg-white transition-all duration-300 group">
           <Search size={18} className="text-slate-400 group-focus-within:text-primary transition-colors" />
           <input
             placeholder={searchPlaceholder}
-            value={(table.getColumn(searchColumn || "")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn(searchColumn || "")?.setFilterValue(event.target.value)
-            }
+            value={serverSide ? globalFilter : ((table.getColumn(searchColumn || "")?.getFilterValue() as string) ?? "")}
+            onChange={(event) => {
+              if (serverSide) {
+                setGlobalFilter(event.target.value);
+                // Reset page to 0 when searching
+                table.setPageIndex(0);
+              } else {
+                table.getColumn(searchColumn || "")?.setFilterValue(event.target.value);
+              }
+            }}
             className="w-full bg-transparent text-[14px] outline-none placeholder:text-slate-400 font-medium text-slate-700"
           />
         </div>
@@ -155,7 +192,10 @@ export function DataTable<TData, TValue>({
         </div>
         
         <div className="text-[13px] font-semibold text-slate-500">
-          {table.getFilteredRowModel().rows.length === 0 ? 0 : table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, table.getFilteredRowModel().rows.length)} of {table.getFilteredRowModel().rows.length}
+          {serverSide 
+            ? `${(data || []).length === 0 ? 0 : table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to ${Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, totalRecords)} of ${totalRecords}`
+            : `${table.getFilteredRowModel().rows.length === 0 ? 0 : table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to ${Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, table.getFilteredRowModel().rows.length)} of ${table.getFilteredRowModel().rows.length}`
+          }
         </div>
 
         <div className="flex items-center gap-1.5">

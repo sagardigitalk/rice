@@ -7,10 +7,11 @@ export interface InputProps
   label?: string;
   name: string;
   error?: string;
+  rules?: any;
 }
 
 const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, label, name, ...props }, ref) => {
+  ({ className, type, label, name, rules, ...props }, ref) => {
     const {
       register,
       formState: { errors },
@@ -34,7 +35,7 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
             error && "border-rose-400 focus-visible:border-rose-400 focus-visible:ring-rose-400",
             className
           )}
-          {...register(name)}
+          {...register(name, rules)}
           {...props}
         />
         {error && (

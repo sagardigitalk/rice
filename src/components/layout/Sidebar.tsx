@@ -8,13 +8,16 @@ import {
   ChevronLeft,
   ChevronRight,
   Factory,
+  LayoutDashboard,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 const menuItems = [
+  { icon: LayoutDashboard, label: "Dashboard", href: "/" },
   { icon: Users, label: "Leads", href: "/leads" },
   { icon: Factory, label: "ExMill", href: "/exmill" },
   { icon: Ship, label: "Freight", href: "/freight" },
@@ -23,6 +26,7 @@ const menuItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { logout } = useAuth();
 
   return (
     <motion.aside
@@ -71,7 +75,7 @@ export function Sidebar() {
             );
           }
 
-          const isActive = pathname === item.href;
+          const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
           const Icon = item.icon!;
 
           return (
@@ -118,6 +122,7 @@ export function Sidebar() {
 
       <div className="p-5 border-t border-slate-100 bg-slate-50/50">
         <button
+          onClick={logout}
           className={cn(
             "flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition-all font-semibold text-[13.5px] border border-transparent hover:border-rose-100",
             collapsed && "justify-center px-0"

@@ -6,7 +6,7 @@ import { DataTable } from "@/components/tables/DataTable";
 import { Button } from "@/components/common/Button";
 import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { Lead } from "@/types/leads";
+import { Lead } from "@/services/leadService";
 import { useState, useEffect } from "react";
 import { leadService } from "@/services/leadService";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";

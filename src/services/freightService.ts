@@ -23,7 +23,7 @@ export const freightService = {
       url += `?${queryParams.toString()}`;
     }
 
-    const response = await apiClient.get(url);
+    const response = await apiClient.get(url) as any;
     return response;
   },
   getById: async (id: string) => {

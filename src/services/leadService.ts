@@ -9,6 +9,13 @@ export interface Lead {
   email: string;
   phone?: string;
   assignedTo?: string;
+  variety?: any;
+  form?: string;
+  size?: string;
+  packType?: string;
+  cifCountry?: string;
+  priceType?: string;
+  quote?: any;
 }
 
 export const leadService = {

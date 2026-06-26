@@ -65,7 +65,7 @@ export default function LeadsPage() {
   const columns: ColumnDef<Lead>[] = [
     { accessorKey: "contactPerson", header: "Contact Person" },
     { accessorKey: "companyName", header: "Company" },
-    { accessorKey: "email", header: "Email" },
+
     { accessorKey: "phone", header: "Phone" },
     {
       accessorKey: "status",

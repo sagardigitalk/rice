@@ -6,7 +6,7 @@ export interface Lead {
   contactPerson: string;
   companyName: string;
   status: string;
-  email: string;
+
   phone?: string;
   assignedTo?: string;
   variety?: any;

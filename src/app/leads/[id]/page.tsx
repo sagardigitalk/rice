@@ -131,7 +131,7 @@ export default function LeadAddEditPage() {
         packType: data.packType,
         cifCountry: data.cifCountry,
         status: 'New', // default
-        email: data.name.toLowerCase().replace(/\s/g, '') + '@example.com', // Dummy email
+
       };
 
       if (isEditMode) {

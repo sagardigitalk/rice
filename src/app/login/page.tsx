@@ -77,19 +77,26 @@ export default function LoginPage() {
                 }
               }}
             />
-            <FormInput
-              name="password"
-              label="Password"
-              type="password"
-              placeholder="••••••••"
-              rules={{ 
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters"
-                }
-              }}
-            />
+            <div className="space-y-1">
+              <FormInput
+                name="password"
+                label="Password"
+                type="password"
+                placeholder="••••••••"
+                rules={{ 
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters"
+                  }
+                }}
+              />
+              <div className="flex justify-end">
+                <a href="/forgot-password" className="text-sm text-[var(--color-brand-primary)] hover:underline font-medium">
+                  Forgot Password?
+                </a>
+              </div>
+            </div>
 
             <div className="pt-2">
               <Button type="submit" className="w-full h-12 text-[15px] shadow-md shadow-indigo-200" disabled={isLoading}>

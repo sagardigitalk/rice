@@ -3,6 +3,10 @@ export interface EndPointApi {
   authLogin: string;
   authRegister: string;
   authMe: string;
+  authForgotPassword: string;
+  authResetPassword: string;
+  authUpdateDetails: string;
+  authUpdatePassword: string;
 
   // Leads
   leads: string;
@@ -30,6 +34,9 @@ export interface EndPointApi {
 
   // Calculations
   calculations: string;
+
+  // Dashboard
+  dashboardStats: string;
 }
 
 const endPointApi: EndPointApi = {
@@ -37,6 +44,10 @@ const endPointApi: EndPointApi = {
   authLogin: 'auth/login',
   authRegister: 'auth/register',
   authMe: 'auth/me',
+  authForgotPassword: 'auth/forgotpassword',
+  authResetPassword: 'auth/resetpassword',
+  authUpdateDetails: 'auth/updatedetails',
+  authUpdatePassword: 'auth/updatepassword',
 
   // Leads
   leads: 'leads',
@@ -64,6 +75,9 @@ const endPointApi: EndPointApi = {
 
   // Calculations
   calculations: 'calculations',
+
+  // Dashboard
+  dashboardStats: 'dashboard/stats',
 };
 
 export default endPointApi;

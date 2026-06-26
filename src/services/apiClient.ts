@@ -27,7 +27,7 @@ apiClient.interceptors.response.use(
     // Check if the backend sent a success message
     const successMessage = response.data?.message;
     if (successMessage && typeof window !== 'undefined') {
-      toast.success(successMessage);
+      // toast.success(successMessage);
     }
     return response.data;
   },
@@ -37,7 +37,7 @@ apiClient.interceptors.response.use(
     
     // Global error handling with toast
     if (typeof window !== 'undefined') {
-      toast.error(errorMessage);
+      // toast.error(errorMessage);
     }
     
     return Promise.reject(error.response?.data || error);

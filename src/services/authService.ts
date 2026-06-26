@@ -29,6 +29,22 @@ export const authService = {
     return response as unknown as MeResponse;
   },
 
+  forgotPassword: async (email: string) => {
+    return await apiClient.post(endPointApi.authForgotPassword, { email });
+  },
+
+  resetPassword: async (token: string, password: string) => {
+    return await apiClient.put(`${endPointApi.authResetPassword}/${token}`, { password });
+  },
+
+  updateDetails: async (data: { name?: string; email?: string }) => {
+    return await apiClient.put(endPointApi.authUpdateDetails, data);
+  },
+
+  updatePassword: async (data: Record<string, string>) => {
+    return await apiClient.put(endPointApi.authUpdatePassword, data);
+  },
+
   logout: () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
